@@ -31,6 +31,8 @@ export default {
           active: true,
         },
       ],
+      deliveryMonths:[],
+      selectedMonth: ''
     };
   },
   components: {
@@ -45,6 +47,30 @@ export default {
     TopPages,
     Users,
   },
+  methods:{
+    generateDeliveryMonthArray() {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth();
+
+      const monthYearArray = [];
+
+      for (let i = 0; i < 72; i++) {
+      const year = currentYear - Math.floor(i / 12);
+      const month = (currentMonth - i % 12 + 12) % 12;
+      const monthName = new Date(year, month).toLocaleString('default', { month: 'long' });
+
+      const monthYearString = `${monthName} ${year}`;
+      monthYearArray.push(monthYearString);
+      }
+  
+      this.deliveryMonths = monthYearArray;
+      console.log(this.deliveryMonths);
+    }
+  },
+  mounted(){
+    this.generateDeliveryMonthArray();
+  }
 };
 </script>
 
@@ -59,22 +85,20 @@ export default {
               <b-card-body class="p-0">
  
                 <b-row class="align-items-end">
-                  <b-col sm="8">
+                  <b-col sm="12">
                     <div class="p-3">
 
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">Delivery Month</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" id="inputGroupSelect01" v-model="selectedMonth">
+                          <option v-for="monthYear in deliveryMonths" :key="monthYear" :value="monthYear">{{ monthYear }}</option>
                         </select>
                       </div>
 
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">DNO</label>
                         <select class="form-select" id="inputGroupSelect01">
-                            <option value="1">One</option>
+                            <option value="1">EELC</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
@@ -83,54 +107,37 @@ export default {
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">LLFC</label>
                         <select class="form-select" id="inputGroupSelect01">
-                            <option value="1">One</option>
+                            <option value="1">310</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                       </div>
 
-                      <div class="mt-3">
+                      <div class="mt-3 table-hscroll">
                         <table class="table table-nowrap table-hover">
                           <thead>
                               <tr>
-                                  <th scope="col">Date</th>
-                                  <th scope="col">1</th>
-                                  <th scope="col">2</th>
-                                  <th scope="col">3</th>
-                                  <th scope="col">4</th>
+                                <th scope="col">Date</th>
+                                  <!-- Generate columns up to 50 -->
+                                  <template v-for="column in 50" :key="column">
+                                    <th scope="col" >{{ column }}</th>
+                                  </template>
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                  <th scope="row"><a href="#" class="fw-semibold">#VZ2110</a></th>
-                                  <td>Bobby Davis</td>
-                                  <td>October 15, 2021</td>
-                                  <td>$2,300</td>
-                                  <td><a href="javascript:void(0);" class="link-success">View More <i class="ri-arrow-right-line align-middle"></i></a></td>
-                              </tr>
-                              <tr>
-                                  <th scope="row"><a href="#" class="fw-semibold">#VZ2109</a></th>
-                                  <td>Christopher Neal</td>
-                                  <td>October 7, 2021</td>
-                                  <td>$5,500</td>
-                                  <td><a href="javascript:void(0);" class="link-success">View More <i class="ri-arrow-right-line align-middle"></i></a></td>
-                              </tr>
-                              <tr>
-                                  <th scope="row"><a href="#" class="fw-semibold">#VZ2108</a></th>
-                                  <td>Monkey Karry</td>
-                                  <td>October 5, 2021</td>
-                                  <td>$2,420</td>
-                                  <td><a href="javascript:void(0);" class="link-success">View More <i class="ri-arrow-right-line align-middle"></i></a></td>
-                              </tr>
-                              <tr>
-                                  <th scope="row"><a href="#" class="fw-semibold">#VZ2107</a></th>
-                                  <td>James White</td>
-                                  <td>October 2, 2021</td>
-                                  <td>$7,452</td>
-                                  <td><a href="javascript:void(0);" class="link-success">View More <i class="ri-arrow-right-line align-middle"></i></a></td>
-                              </tr>
+                              <!-- Generate rows for each day of the month -->
+                              <template v-for="day in 30" :key="day">
+                                <tr>
+                                  <th scope="row">
+                                    <a href="#" class="fw-semibold">{{ day }}</a>
+                                  </th>
+                                  <template v-for="column in 50" :key="column">
+                                    <td>1.02</td>
+                                  </template>
+                                </tr>
+                              </template>
                           </tbody>
-                      </table>
+                        </table>
                       </div>
                     </div>
                   </b-col>
