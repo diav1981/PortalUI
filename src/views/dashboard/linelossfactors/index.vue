@@ -65,18 +65,15 @@ export default {
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">Delivery Month</label>
                         <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
                       </div>
 
-
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">DNO</label>
                         <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -86,7 +83,6 @@ export default {
                       <div class="input-group">
                         <label class="input-group-text" style="width:150px" for="inputGroupSelect01">LLFC</label>
                         <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>

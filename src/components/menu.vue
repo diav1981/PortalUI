@@ -1167,7 +1167,7 @@ export default {
     <template v-else>
       <ul class="navbar-nav h-100" id="navbar-nav">
         <li class="menu-title">
-          <span data-key="t-menu"> {{ $t("t-menu") }} 234</span>
+          <span data-key="t-menu"> {{ $t("t-menu") }} </span>
         </li>
         <li class="nav-item">
           <b-link class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
@@ -1205,7 +1205,7 @@ export default {
           <b-link class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarApps">
             <i class="ri-apps-2-line"></i>
-            <span data-key="t-apps"> {{ $t("t-apps") }}</span>
+            <span data-key="t-industry-invoices"> {{ $t("t-industry-invoices") }}</span>
           </b-link>
           <div class="collapse menu-dropdown" id="sidebarApps">
             <ul class="nav nav-sm flex-column">
@@ -1643,18 +1643,12 @@ export default {
           </div>
         </li>
 
-        <li class="menu-title">
-          <i class="ri-more-fill"></i>
-          <span data-key="t-pages">{{ $t("t-pages") }}</span>
-        </li>
 
         <li class="nav-item">
           <b-link class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarAuth">
             <i class="ri-account-circle-line"></i>
-            <span data-key="t-authentication">{{
-              $t("t-authentication")
-            }}</span>
+            <span data-key="t-industry-pricing"> {{ $t("t-industry-pricing") }}</span>
           </b-link>
           <div class="collapse menu-dropdown" id="sidebarAuth">
             <ul class="nav nav-sm flex-column">
@@ -1858,7 +1852,7 @@ export default {
           <b-link class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarPages">
             <i class="ri-pages-line"></i>
-            <span data-key="t-pages">{{ $t("t-pages") }}</span>
+            <span data-key="t-government-levies">{{ $t("t-government-levies") }}</span>
           </b-link>
           <div class="collapse menu-dropdown" id="sidebarPages">
             <ul class="nav nav-sm flex-column">
@@ -1949,7 +1943,7 @@ export default {
           <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarlanding" data-key="t-projects">
             <i class="ri-rocket-line"></i>
-            <span data-key="t-landing">{{ $t("t-landing") }}</span>
+            <span data-key="t-trading">{{ $t("t-trading") }}</span>
           </b-link>
           <div class="collapse menu-dropdown" id="sidebarlanding">
             <ul class="nav nav-sm flex-column">

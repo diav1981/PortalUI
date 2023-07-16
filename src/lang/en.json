@@ -7,6 +7,17 @@
     "t-metered-consumption":"Metered Consumption",
     "t-transmission-loss-factors":"Transmission Loss Factors",
     "t-billable-consumption":"Billable Consumption",
+    "t-industry-invoices":"Industry Invoices",
+    "t-industry-pricing":"Industry Pricing",
+    "t-government-levies":"Government Levies",
+    "t-trading":"Trading",
+    "t-billing-points":"Billing Points",
+    "t-contract-pricing":"Contract Pricing",
+    "t-reconciliation":"Reconciliation",
+    "t-invoicing":"Invoicing",
+    "t-Reporting":"Reporting",
+
+
     "t-crm":"CRM",
     "t-ecommerce":"Ecommerce",
     "t-crypto":"Crypto",

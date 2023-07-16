@@ -89,7 +89,7 @@
             <!-- Dark Logo-->
             <router-link to="/" class="logo logo-dark">
               <span class="logo-sm">
-                <img src="@/assets/images/logo-sm.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
                 <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
