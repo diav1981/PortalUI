@@ -3,15 +3,8 @@
 import Layout from "../../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../../app.config";
-
-import Widget from "./widget.vue";
-import AudiencesMetrics from "./audiences-metrics.vue";
-import AudiencesSessions from "./audiences-sessions.vue";
-import Country from "./country.vue";
-import Referrals from "./referrals.vue";
-import SessionsCounties from "./sessions-countries.vue";
-import TopPages from "./top-pages.vue";
-import Users from "./users.vue";
+import axios from 'axios';
+import { format, endOfMonth, subYears, eachMonthOfInterval, startOfMonth } from 'date-fns';
 
 export default {
   page: {
@@ -21,6 +14,16 @@ export default {
   data() {
     return {
       title: "Line Loss Factors",
+      llfData: null,
+      dnoData: null,
+      llfDist: null,
+      availablellfDist: null,
+      deliveryMonths: [],
+      selectedMonth: null,
+      selectedFromDate: null,
+      selectedToDate: null,
+      selectedDno: null,
+      selectedLlf: null,
       items: [
         {
           text: "Industry Flows",
@@ -31,48 +34,87 @@ export default {
           active: true,
         },
       ],
-      deliveryMonths:[],
-      selectedMonth: ''
     };
   },
   components: {
     Layout,
-    PageHeader,
-    Widget,
-    AudiencesSessions,
-    AudiencesMetrics,
-    Country,
-    Referrals,
-    SessionsCounties,
-    TopPages,
-    Users,
+    PageHeader
+  },
+  computed:{
+    areAllDropdownsPopulated() {
+      return !!this.llfData && this.llfData.length > 0;
+    } 
   },
   methods:{
+    async fetchLlfDistributorCombinationData() {
+      const url = 'http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Llf/';
+
+      try {
+        const response = await axios.get(url);
+        this.llfDist = response.data;
+        this.availablellfDist = this.llfDist;
+      } catch (error) {
+        console.error('Error fetching LLF Distributor Combination data:', error);
+      }
+    },
+    async fetchLlfData() {
+      const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Llf/GetLlfPivot/${this.selectedDno}/${this.selectedLlf}/${this.selectedFromDate}/${this.selectedToDate}`;
+      try {
+        const response = await axios.get(url);
+        this.llfData = response.data;
+      } catch (error) {
+        console.error('Error fetching LLF data:', error);
+      }
+    },
+    async fetchDnoData() {
+      const url = 'http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/dno';
+
+      try {
+        const response = await axios.get(url);
+        this.dnoData = response.data;
+      } catch (error) {
+        console.error('Error fetching Dno data:', error);
+      }
+    },
     generateDeliveryMonthArray() {
       const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-      const currentMonth = currentDate.getMonth();
+      const sixYearsAgo = subYears(currentDate, 6);
+      const allMonths = eachMonthOfInterval({ start: sixYearsAgo, end: currentDate });
 
-      const monthYearArray = [];
-
-      for (let i = 0; i < 72; i++) {
-      const year = currentYear - Math.floor(i / 12);
-      const month = (currentMonth - i % 12 + 12) % 12;
-      const monthName = new Date(year, month).toLocaleString('default', { month: 'long' });
-
-      const monthYearString = `${monthName} ${year}`;
-      monthYearArray.push(monthYearString);
+      const result = allMonths.map(month => {
+        const monthYearString = format(month, 'MMMM yyyy');
+        const dt = startOfMonth(month);
+        return { dt, monthYearString };
+      });
+        
+      this.deliveryMonths = result.reverse();
+    },
+    handleDropdownChange() {
+      if(this.selectedLlf === null || this.selectedDno === null || this.selectedMonth === null)
+      {
+        return;
       }
-  
-      this.deliveryMonths = monthYearArray;
-      console.log(this.deliveryMonths);
-    }
+
+      /*if(this.selectedDno !== null && this.selectedLlf === null)
+      {
+        const filteredData = this.llfDist.filter(item => item.distributorId === this.selectedDno);
+        this.availablellfDist = filteredData;
+        console.log(this.availablellfDist);
+      }*/
+      this.selectedFromDate = format(this.selectedMonth,'yyyy-MM-dd')
+      this.selectedToDate = format(endOfMonth(this.selectedMonth),'yyyy-MM-dd');
+      this.fetchLlfData();
+      /*todo - same filter on dno when llf is selected but dno is empty*/
+    },
   },
   mounted(){
+    this.fetchDnoData();
+    this.fetchLlfDistributorCombinationData();
     this.generateDeliveryMonthArray();
   }
 };
 </script>
+
 
 <template>
   <Layout>
@@ -89,55 +131,53 @@ export default {
                     <div class="p-3">
 
                       <div class="input-group">
-                        <label class="input-group-text" style="width:150px" for="inputGroupSelect01">Delivery Month</label>
-                        <select class="form-select" id="inputGroupSelect01" v-model="selectedMonth">
-                          <option v-for="monthYear in deliveryMonths" :key="monthYear" :value="monthYear">{{ monthYear }}</option>
+                        <label class="input-group-text" style="width:150px" for="igMonth">Delivery Month</label>
+                        <select class="form-select" id="igMonth" v-model="selectedMonth" @change="handleDropdownChange">
+                          <option v-for="monthYear in deliveryMonths" :key="monthYear.dt" :value="monthYear.dt">{{ monthYear.monthYearString }}</option>
                         </select>
                       </div>
 
                       <div class="input-group">
-                        <label class="input-group-text" style="width:150px" for="inputGroupSelect01">DNO</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option value="1">EELC</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <label class="input-group-text" style="width:150px" for="igDno">DNO</label>
+                        <select class="form-select" id="igDno" v-model="selectedDno" @change="handleDropdownChange">
+                          <option v-for="dno in dnoData" :key="dno.id" :value="dno.abbreviation">{{ dno.description }}</option>
                         </select>
                       </div>
 
                       <div class="input-group">
-                        <label class="input-group-text" style="width:150px" for="inputGroupSelect01">LLFC</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option value="1">310</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <label class="input-group-text" style="width:150px" for="igLlf">LLFC</label>
+                        <select class="form-select" id="igLlf" v-model="selectedLlf" @change="handleDropdownChange">
+                          <option v-for="x in availablellfDist" :key="x.llf" :value="x.llf">{{ x.llf }}</option>
                         </select>
                       </div>
-
-                      <div class="mt-3 table-hscroll">
-                        <table class="table table-nowrap table-hover">
-                          <thead>
-                              <tr>
-                                <th scope="col">Date</th>
-                                  <!-- Generate columns up to 50 -->
-                                  <template v-for="column in 50" :key="column">
-                                    <th scope="col" >{{ column }}</th>
-                                  </template>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <!-- Generate rows for each day of the month -->
-                              <template v-for="day in 30" :key="day">
+                      <div v-if="areAllDropdownsPopulated">
+                        <div class="mt-3 table-hscroll">
+                          <table class="table table-nowrap table-hover">
+                            <thead>
                                 <tr>
-                                  <th scope="row">
-                                    <a href="#" class="fw-semibold">{{ day }}</a>
-                                  </th>
-                                  <template v-for="column in 50" :key="column">
-                                    <td>1.02</td>
-                                  </template>
+                                  <th scope="col">Date</th>
+                                    <!-- Generate columns up to 50 -->
+                                    <template v-for="column in 50" :key="column">
+                                      <th scope="col" >{{ column }}</th>
+                                    </template>
                                 </tr>
-                              </template>
-                          </tbody>
-                        </table>
+                            </thead>
+                            <tbody>
+                                <!-- Generate rows for each day of the month -->
+                                <template v-for="item in llfData" :key="item.settlementDate">
+                                  <tr>
+                                    <th scope="row">
+                                      {{new Date(item.settlementDate).toLocaleDateString("en-GB")}}
+                                    </th>
+                                    <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
+                                  </tr>
+                                </template>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div v-else class="centered-children-200">
+                        <p>No Data Available</p>
                       </div>
                     </div>
                   </b-col>
@@ -148,38 +188,6 @@ export default {
             </b-card>
           </b-col>
         </b-row>
-        <Widget />
-      </b-col>
-      <b-col xxl="7">
-        <b-row class="h-100">
-          <b-col xl="6">
-            <Country />
-          </b-col>
-          <b-col xl="6">
-            <SessionsCounties />
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-
-    <b-row class="h-100">
-      <b-col xl="6">
-        <AudiencesMetrics />
-      </b-col>
-      <b-col xl="6">
-        <AudiencesSessions />
-      </b-col>
-    </b-row>
-
-    <b-row>
-      <b-col xl="4">
-        <Users />
-      </b-col>
-      <b-col xl="4" md="6">
-        <Referrals />
-      </b-col>
-      <b-col xl="4" md="6">
-        <TopPages />
       </b-col>
     </b-row>
   </Layout>

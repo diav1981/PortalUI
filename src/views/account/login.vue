@@ -259,12 +259,9 @@ export default {
             <div class="text-center mt-sm-5 mb-4 text-white-50">
               <div>
                 <router-link to="/" class="d-inline-block auth-logo">
-                  <img src="@/assets/images/logo-light.png" alt="" height="20" />
+                  <img src="@/assets/images/sefe-logo.png" alt="" />
                 </router-link>
               </div>
-              <p class="mt-3 fs-15 fw-medium">
-                Premium Admin & Dashboard Template
-              </p>
             </div>
           </b-col>
         </b-row>
@@ -275,7 +272,7 @@ export default {
               <b-card-body class="p-4">
                 <div class="text-center mt-2">
                   <h5 class="text-primary">Welcome Back !</h5>
-                  <p class="text-muted">Sign in to continue to Velzon.</p>
+                  <p class="text-muted">Sign in to continue to Flex Portal.</p>
                 </div>
                 <div class="p-2 mt-4">
                   <b-alert v-model="authError" variant="danger" class="mt-3" dismissible>{{ authError }}</b-alert>

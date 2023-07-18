@@ -192,19 +192,19 @@ export default {
           <div class="navbar-brand-box horizontal-logo">
             <router-link to="/" class="logo logo-dark">
               <span class="logo-sm">
-                <img src="@/assets/images/logo-sm.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/logo-dark.png" alt="" height="17" />
+                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
               </span>
             </router-link>
 
             <router-link to="/" class="logo logo-light">
               <span class="logo-sm">
-                <img src="@/assets/images/logo-sm.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/logo-light.png" alt="" height="17" />
+                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
               </span>
             </router-link>
           </div>
@@ -529,7 +529,7 @@ export default {
                 <img class="rounded-circle header-profile-user" src="@/assets/images/users/skeletor.png"
                   alt="Header Avatar" />
                 <span class="text-start ms-xl-2">
-                  <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">David Plant</span>
+                  <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">David</span>
                   <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Developer</span>
                 </span>
               </span>

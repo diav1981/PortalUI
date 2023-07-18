@@ -90,12 +90,52 @@ export default [
     component: () => import("../views/dashboard/crm/index"),
   },
   {
-    path: "/dashboard/linelossfactors",
+    path: "/dashboard/llf",
     name: "dashboard-linelossfactors",
     meta: {
       title: "Line Loss Factors", authRequired: true,
     },
     component: () => import("../views/dashboard/linelossfactors/index"),
+  },
+  {
+    path: "/dashboard/meteredconsumption",
+    name: "dashboard-metered-consumption",
+    meta: {
+      title: "Metered Consumption", authRequired: true,
+    },
+    component: () => import("../views/dashboard/meteredconsumption/index"),
+  },
+  {
+    path: "/dashboard/tlf",
+    name: "dashboard-tlf",
+    meta: {
+      title: "Transmission Loss Factors", authRequired: true,
+    },
+    component: () => import("../views/dashboard/transmissionlossfactors/index"),
+  },
+  {
+    path: "/dashboard/billableconsumption",
+    name: "dashboard-billable-consumption",
+    meta: {
+      title: "Billable Consumption", authRequired: true,
+    },
+    component: () => import("../views/dashboard/billableconsumption/index"),
+  },
+  {
+    path: "/dashboard/duos",
+    name: "dashboard-duos",
+    meta: {
+      title: "Distribution Use of System", authRequired: true,
+    },
+    component: () => import("../views/dashboard/duos/index"),
+  },
+  {
+    path: "/trading/baskets",
+    name: "trading-baskets",
+    meta: {
+      title: "Baskets", authRequired: true,
+    },
+    component: () => import("../views/trading/baskets/index"),
   },
   {
     path: "/dashboard/analytics",

@@ -30,6 +30,13 @@
     }
 }
 
+.centered-children-200{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Set the height of the parent div as needed */
+}
+
 .table-hscroll {
     overflow-x: auto;
 }

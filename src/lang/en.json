@@ -8,6 +8,9 @@
     "t-transmission-loss-factors":"Transmission Loss Factors",
     "t-billable-consumption":"Billable Consumption",
     "t-industry-invoices":"Industry Invoices",
+    "t-duos":"DUoS",
+
+
     "t-industry-pricing":"Industry Pricing",
     "t-government-levies":"Government Levies",
     "t-trading":"Trading",
@@ -17,6 +20,10 @@
     "t-invoicing":"Invoicing",
     "t-Reporting":"Reporting",
 
+
+    "t-trading-baskets":"Baskets",
+    "t-trading-market-prices":"Market Prices",
+    "t-trading-trades":"Trades",
 
     "t-crm":"CRM",
     "t-ecommerce":"Ecommerce",

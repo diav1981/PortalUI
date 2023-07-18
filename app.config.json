@@ -1,4 +1,5 @@
 {
-  "title": "Velzon Vue3 - Admin & Dashboard Template",
-  "description": "Velzon is a fully featured premium Vuejs admin dashboard template built with Bootstrap 5.1.3"
+  "title": "SEFE Flex Portal",
+  "description": "Test Flex Portal For Power",
+  "flexportalapi": "http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/"
 }
