@@ -120,7 +120,6 @@ export default {
   <Layout>
     <PageHeader :title="title" :items="items" />
     <b-row>
-      <b-col xxl="5">
         <b-row>
           <b-col cols="12">
             <b-card no-body>
@@ -188,7 +187,6 @@ export default {
             </b-card>
           </b-col>
         </b-row>
-      </b-col>
     </b-row>
   </Layout>
 </template>

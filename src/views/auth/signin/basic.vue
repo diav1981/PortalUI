@@ -141,7 +141,7 @@ export default {
             <div class="text-center mt-sm-5 mb-4 text-white-50">
               <div>
                 <router-link to="/" class="d-inline-block auth-logo">
-                  <img src="@/assets/images/sefe-logo.png" alt="" height = "100">
+                  <img src="@/assets/images/sefe-logo-white.png" alt="" height = "100">
                 </router-link>
               </div>
               <h2 class="mt-3 fs-15 fw-medium">Flex Portal</h2>

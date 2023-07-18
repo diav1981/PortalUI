@@ -192,19 +192,19 @@ export default {
           <div class="navbar-brand-box horizontal-logo">
             <router-link to="/" class="logo logo-dark">
               <span class="logo-sm">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="48"/>
               </span>
             </router-link>
 
             <router-link to="/" class="logo logo-light">
               <span class="logo-sm">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="48"/>
               </span>
             </router-link>
           </div>

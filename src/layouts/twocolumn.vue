@@ -212,19 +212,19 @@ export default {
           <!-- Dark Logo-->
           <router-link to="/" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="48"/>
               </span>
           </router-link>
           <!-- Light Logo-->
           <router-link to="/" class="logo logo-light">
             <span class="logo-sm">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="22" />
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="22" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/sefe-logo.png" alt="" height="48"/>
+                <img src="@/assets/images/sefe-logo-white.png" alt="" height="48"/>
               </span>
           </router-link>
           <button type="button" class=" btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"

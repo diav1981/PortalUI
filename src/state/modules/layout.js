@@ -3,10 +3,10 @@ export const state = {
   layoutWidth: 'fluid',
   sidebarSize: 'lg',
   topbar: 'light',
-  mode: 'light',
+  mode: 'dark',
   position: 'fixed',
   sidebarView: 'default',
-  sidebarColor: 'light',
+  sidebarColor: 'dark',
   sidebarImage: 'none',
   preloader: 'disable',
   visibility: 'show'
