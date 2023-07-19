@@ -34,6 +34,7 @@
     "bootstrap-vue-3": "^0.4.15",
     "chart.js": "^4.1.1",
     "click-outside-vue3": "^4.0.1",
+    "clippyjs": "^0.0.3",
     "core-js": "^3.27.1",
     "date-fns": "^2.30.0",
     "echarts": "^5.4.1",
