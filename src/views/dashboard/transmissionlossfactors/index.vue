@@ -56,13 +56,6 @@ export default {
         return;
       } 
  
-      console.log('all data is');
-      console.log(this.tlfData);
-      console.log('settlement run is'); 
-      console.log(this.selectedSettlementRun);
-      console.log('dno run is'); 
-      console.log(this.selectedDno);
-
       if(this.selectedSettlementRun === "LA")
       {
         this.filteredDeliveryTlfData =  this.tlfData.filter(obj => obj.dnoId == this.selectedDno && obj.isLatestSr === 1 && obj.deliveryType === 'Offtaking');
@@ -81,13 +74,9 @@ export default {
       {
         this.filteredDeliveryTlfData =  this.tlfData.filter(obj => obj.dnoId == this.selectedDno && obj.settlementRun === this.selectedSettlementRun && obj.deliveryType === 'Delivering');
       }
-
-      console.log('offtake is');
-      console.log(this.filteredOfftakeTlfData);
     },
     async fetchTLFData() {
       const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/tlf/GetTlfPivot/${this.selectedFromDate}/${this.selectedToDate}`;
-      console.log('url is ' + url);
       try {
         const response = await axios.get(url);
         this.tlfData = response.data;
