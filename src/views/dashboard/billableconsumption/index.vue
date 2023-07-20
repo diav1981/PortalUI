@@ -42,16 +42,17 @@
         computed:{
           hasGspData() {
             return !!this.gspData && this.gspData.length > 0;
-          } 
+          },
+          hasMspData() {
+            return !!this.mspData && this.mspData.length > 0;
+          },            
+          hasNbpData() {
+            return !!this.nbpData && this.nbpData.length > 0;
+          }            
         },        
         methods: {
             async fetchGspData() {
-              console.log('fetching gsp data');
-              
               const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/GspCons/GetGspConsPivot/${this.selectedMpan}/${this.selectedFromDate}/${this.selectedToDate}`;
-
-              //const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/GspCons/GetGspConPivot/${this.selectedMpan}/${this.selectedFromDate}/${this.selectedToDate}`;
-              console.log(url);
               try {
                 const response = await axios.get(url);
                 this.gspData = response.data;
@@ -59,7 +60,31 @@
               } catch (error) {
                 console.error('Error fetching GSP data:', error);
               }
-            },          
+            },   
+            async fetchMspData() {
+              console.log('fetching msp');
+              const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/MspCons/GetMspConsPivot/${this.selectedMpan}/${this.selectedFromDate}/${this.selectedToDate}`;
+              console.log(url);
+              try {
+                const response = await axios.get(url);
+                this.mspData = response.data;
+                console.log(this.mspData);
+              } catch (error) {
+                console.error('Error fetching MSP data:', error);
+              }
+            },                    
+            async fetchNbpData() {
+              console.log('fetching nbp');
+              const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/NbpCons/GetNbpConsPivot/${this.selectedMpan}/${this.selectedSettlementRun}/${this.selectedFromDate}/${this.selectedToDate}`;
+              console.log(url);
+              try {
+                const response = await axios.get(url);
+                this.nbpData = response.data;
+                console.log(this.nbpData);
+              } catch (error) {
+                console.error('Error fetching NBP data:', error);
+              }
+            },
             async fetchSettlementRunData() {
                 const url = 'http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/settlementrun/';
 
@@ -105,6 +130,12 @@
               if(this.selectedMpan !== null)
               {
                 this.fetchGspData();
+                this.fetchMspData();
+              }
+
+              if(this.selectedSettlementRun !== null)
+              {
+                this.fetchNbpData();
               }
             },
         },
@@ -173,7 +204,7 @@
                               <b-row class="align-items-end">
                                 <b-col sm="12">
                                   <div class="p-3">
-                                    <div v-if="isMspDataAvailable">
+                                    <div v-if="hasMspData">
                                       <div class="mt-3 table-hscroll">
                                         <table class="table table-nowrap table-hover">
                                             <thead>
@@ -187,10 +218,10 @@
                                             </thead>
                                             <tbody>
                                                 <!-- Generate rows for each day of the month -->
-                                                <template v-for="item in mspData" :key="item.settlementDate">
+                                                <template v-for="item in mspData" :key="item.BillableDate">
                                                   <tr>
                                                     <th scope="row">
-                                                      {{new Date(item.settlementDate).toLocaleDateString("en-GB")}}
+                                                      {{new Date(item.BillableDate).toLocaleDateString("en-GB")}}
                                                     </th>
                                                     <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
                                                   </tr>
@@ -251,7 +282,7 @@
                               <b-row class="align-items-end">
                                 <b-col sm="12">
                                   <div class="p-3">
-                                    <div v-if="isDeliveryDataAvailable">
+                                    <div v-if="hasNbpData">
                                       <div class="mt-3 table-hscroll">
                                         <table class="table table-nowrap table-hover">
                                             <thead>
@@ -265,10 +296,10 @@
                                             </thead>
                                             <tbody>
                                                 <!-- Generate rows for each day of the month -->
-                                                <template v-for="item in nbpData" :key="item.settlementDate">
+                                                <template v-for="item in nbpData" :key="item.billableDate">
                                                   <tr>
                                                     <th scope="row">
-                                                      {{new Date(item.settlementDate).toLocaleDateString("en-GB")}}
+                                                      {{new Date(item.billableDate).toLocaleDateString("en-GB")}}
                                                     </th>
                                                     <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
                                                   </tr>
