@@ -28,4 +28,4 @@ steps:
       Contents: |
         **/publish/**
         **/*dockerfile*
-       TargetFolder: '$(Build.ArtifactStagingDirectory)/Docker'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Docker'
