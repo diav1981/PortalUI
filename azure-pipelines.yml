@@ -16,11 +16,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    yarn add @vue/cli-service
-    yarn add @vue/cli-plugin-babel
-    yarn add @vue/cli-plugin-eslint    
-    yarn add vue-template-compiler
-    yarn add eslint-plugin-vue
-    yarn add @vuelidate/validators
+    yarn install
     yarn build
   displayName: 'yarn build'
