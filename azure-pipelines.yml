@@ -17,5 +17,6 @@ steps:
 
 - script: |
     npm i @vue/cli-service
+    npm i @vue/cli-plugin-babel
     yarn build
   displayName: 'yarn build'
