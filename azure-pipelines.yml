@@ -21,5 +21,6 @@ steps:
     npm install eslint
     npm i @vue/cli-plugin-eslint    
     npm i vue-template-compiler
+    npm i eslint-plugin-vue
     yarn build
   displayName: 'yarn build'
