@@ -107,11 +107,19 @@ export default [
   },
   {
     path: "/industrypricing/auto/bsuos",
-    name: "dashboard-metered-consumption",
+    name: "industry-pricing-auto-bsuos",
     meta: {
       title: "BSUoS", authRequired: true,
     },
     component: () => import("../views/industrypricing/auto/bsuos/index"),
+  },  
+  {
+    path: "/industrypricing/auto/rcrc",
+    name: "industry-pricing-auto-rcrc",
+    meta: {
+      title: "RCRC", authRequired: true,
+    },
+    component: () => import("../views/industrypricing/auto/rcrc/index"),
   },  
   {
     path: "/dashboard/tlf",

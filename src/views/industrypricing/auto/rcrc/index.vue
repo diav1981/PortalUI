@@ -9,12 +9,12 @@ import axios from 'axios';
 
 export default {
   page: {
-    title: "Balancing Services Use of System (BSUoS)",
+    title: "Residual Cashflow Reallocation Cashflow (RCRC)",
     meta: [{ name: "description", content: appConfig.description }],
   },
   data() {
     return {
-      title: "Balancing Services Use of System (BSUoS)",
+      title: "Residual Cashflow Reallocation Cashflow (RCRC)",
       items: [
         {
           text: "Industry Pricing",
@@ -25,7 +25,7 @@ export default {
           href: "/",
         },
         {
-          text: "Balancing Services Use of System (BSUoS)",
+          text: "Residual Cashflow Reallocation Cashflow (RCRC)",
           active: true,
         },
       ],
@@ -36,7 +36,7 @@ export default {
       selectedToDate: null,
       settlementRunList: null,
       selectedSettlementRun: null,
-      bsuosData: null,
+      rcrcData: null,
     };
   },
   components: {
@@ -45,28 +45,28 @@ export default {
   },
   computed:{
     hasData() {
-      return !!this.bsuosData && this.bsuosData.length > 0;
+      return !!this.rcrcData && this.rcrcData.length > 0;
     }, 
   },  
   methods:{
-    async fetchbsuosData() {
+    async fetchRcrcData() {
       console.log('fetching data');
       var url = ''
       if(this.selectedSettlementRun == "LA")
       {
-        url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Bsuos/GetBsuosPivot/Latest/${this.selectedFromDate}/${this.selectedToDate}`;
+        url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/rcrc/GetRcrcPivot/Latest/${this.selectedFromDate}/${this.selectedToDate}`;
       }
       else
       {
-        url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Bsuos/GetBsuosPivot/${this.selectedSettlementRun}/${this.selectedFromDate}/${this.selectedToDate}`;
+        url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/rcrc/GetRcrcPivot/${this.selectedSettlementRun}/${this.selectedFromDate}/${this.selectedToDate}`;
       }
       console.log(url);
       try {
         const response = await axios.get(url);
-        this.bsuosData = response.data;
-        console.log(this.bsuosData);
+        this.rcrcData = response.data;
+        console.log(this.rcrcData);
       } catch (error) {
-        console.error('Error fetching duos data:', error);
+        console.error('Error fetching rcrc data:', error);
       }
     },   
     generateDeliveryMonthArray() {
@@ -100,7 +100,7 @@ export default {
 
       this.selectedFromDate = format(this.selectedMonth,'yyyy-MM-dd')
       this.selectedToDate = format(endOfMonth(this.selectedMonth),'yyyy-MM-dd');
-      this.fetchbsuosData();
+      this.fetchRcrcData();
     },    
   },
   mounted(){
@@ -155,10 +155,10 @@ export default {
                                             </thead>
                                             <tbody>
                                                 <!-- Generate rows for each day of the month -->
-                                                <template v-for="item in bsuosData" :key="item.settlementDay">
+                                                <template v-for="item in rcrcData" :key="item.settlementDate">
                                                   <tr>
                                                     <th scope="row">
-                                                      {{new Date(item.settlementDay).toLocaleDateString("en-GB")}}
+                                                      {{new Date(item.settlementDate).toLocaleDateString("en-GB")}}
                                                     </th>
                                                     <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
                                                   </tr>

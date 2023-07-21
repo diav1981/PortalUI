@@ -1289,7 +1289,7 @@
                                             </router-link>
                                         </li>
                                         <li class="nav-item">
-                                            <router-link to="/auth/signup-basic" class="nav-link" data-key="t-industry-pricing-auto-rcrc">
+                                            <router-link to="/industrypricing/auto/rcrc" class="nav-link" data-key="t-industry-pricing-auto-rcrc">
                                                 {{ $t("t-industry-pricing-auto-rcrc") }}
                                             </router-link>
                                         </li>
