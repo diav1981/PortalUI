@@ -18,6 +18,7 @@ steps:
 - script: |
     npm i @vue/cli-service
     npm i @vue/cli-plugin-babel
-    npm i @vue/cli-plugin-eslint
+    npm install eslint
+    npm i @vue/cli-plugin-eslint    
     yarn build
   displayName: 'yarn build'
