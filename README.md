@@ -1,5 +1,3 @@
-# velzon
-
 ## Project setup
 ```
 yarn install
