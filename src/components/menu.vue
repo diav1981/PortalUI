@@ -1284,7 +1284,7 @@
                                 <div class="collapse menu-dropdown" id="industrypricingauto">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <router-link to="/auth/signup-basic" class="nav-link" data-key="t-industry-pricing-auto-bsuos">
+                                            <router-link to="/industrypricing/auto/bsuos" class="nav-link" data-key="t-industry-pricing-auto-bsuos">
                                                 {{ $t("t-industry-pricing-auto-bsuos") }}
                                             </router-link>
                                         </li>
@@ -1316,164 +1316,6 @@
                                         <li class="nav-item">
                                             <router-link to="/auth/signup-cover" class="nav-link" data-key="t-industry-pricing-manual-tnuos">
                                                 {{ $t("t-industry-pricing-manual-tnuos") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <b-link href="#sidebarResetPass" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
-                                    {{ $t("t-password-reset") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarResetPass">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/reset-pwd-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/reset-pwd-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <b-link href="#sidebarcreatepassword" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarcreatepassword" data-key="t-lock-screen">
-                                    {{ $t("t-password-create") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarcreatepassword">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/create-pwd-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/create-pwd-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <b-link href="#sidebarLockScreen" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarLockScreen" data-key="t-lock-screen">
-                                    {{ $t("t-lock-screen") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarLockScreen">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/lockscreen-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/lockscreen-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <b-link href="#sidebarLogout" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarLogout" data-key="t-logout">
-                                    {{ $t("t-logout") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarLogout">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/logout-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/logout-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <b-link href="#sidebarSuccessMsg" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarSuccessMsg" data-key="t-success-message">
-                                    {{ $t("t-success-message") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarSuccessMsg">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/success-msg-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/success-msg-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <b-link href="#sidebarTwoStep" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarTwoStep" data-key="t-two-step-verification">
-                                    {{ $t("t-two-step-verification") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarTwoStep">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/twostep-basic" class="nav-link" data-key="t-basic">
-                                                {{ $t("t-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/twostep-cover" class="nav-link" data-key="t-cover">
-                                                {{ $t("t-cover") }}
-                                            </router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <b-link href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors">
-                                    {{ $t("t-errors") }}
-                                </b-link>
-                                <div class="collapse menu-dropdown" id="sidebarErrors">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <router-link to="/auth/404-basic" class="nav-link" data-key="t-404-basic">
-                                                {{ $t("t-404-basic") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/404-cover" class="nav-link" data-key="t-404-cover">
-                                                {{ $t("t-404-cover") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/404" class="nav-link" data-key="t-404-alt">
-                                                {{ $t("t-404-alt") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/500" class="nav-link" data-key="t-500">
-                                                {{ $t("t-500") }}
-                                            </router-link>
-                                        </li>
-                                        <li class="nav-item">
-                                            <router-link to="/auth/ofline" class="nav-link" data-key="t-offline-page">
-                                                {{ $t("t-offline-page") }}
                                             </router-link>
                                         </li>
                                     </ul>
@@ -1560,7 +1402,156 @@
                         </ul>
                     </div>
                 </li>
-
+                <li class="nav-item">
+                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="sidebarlanding" data-key="t-projects">
+                        <i class="ri-rocket-line"></i>
+                        <span data-key="t-trading">{{ $t("t-billing-points") }}</span>
+                    </b-link>
+                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-billing-points-billing-groups">{{ $t("t-billing-points-billing-groups") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-billing-points-customers">{{ $t("t-billing-points-customers") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-billing-points-meter-points">{{ $t("t-billing-points-meter-points") }}</span>
+                                </b-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="sidebarlanding" data-key="t-contract-pricing">
+                        <i class="ri-rocket-line"></i>
+                        <span data-key="t-contract-pricing">{{ $t("t-contract-pricing") }}</span>
+                    </b-link>
+                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-contract-pricing-flex-cop">{{ $t("t-contract-pricing-flex-cop") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-contract-pricing-fixed-cop">{{ $t("t-contract-pricing-fixed-cop") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-contract-pricing-management-charges">{{ $t("t-contract-pricing-management-charges") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-contract-pricing-discounts">{{ $t("t-contract-pricing-discounts") }}</span>
+                                </b-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="sidebarlanding" data-key="t-reconciliation">
+                        <i class="ri-rocket-line"></i>
+                        <span data-key="t-reconciliation">{{ $t("t-reconciliation") }}</span>
+                    </b-link>
+                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-reconciliation-reconcile">{{ $t("t-reconciliation-reconcile") }}</span>
+                                </b-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="sidebarlanding" data-key="t-invoicing">
+                        <i class="ri-rocket-line"></i>
+                        <span data-key="t-invoicing">{{ $t("t-invoicing") }}</span>
+                    </b-link>
+                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-pre-billing-validation">{{ $t("t-invoicing-pre-billing-validation") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-credit-and-rebill">{{ $t("t-invoicing-credit-and-rebill") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-monthly-charges">{{ $t("t-invoicing-monthly-charges") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-holding-area">{{ $t("t-invoicing-holding-area") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-approvals">{{ $t("t-invoicing-approvals") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-posting">{{ $t("t-invoicing-posting") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-invoicing-copy-invoices">{{ $t("t-invoicing-copy-invoices") }}</span>
+                                </b-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>                
+                <li class="nav-item">
+                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="sidebarlanding" data-key="t-reporting">
+                        <i class="ri-rocket-line"></i>
+                        <span data-key="t-reporting">{{ $t("t-reporting") }}</span>
+                    </b-link>
+                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-reporting-half-hourly-data">{{ $t("t-reporting-half-hourly-data") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-reporting-billed-report">{{ $t("t-reporting-billed-report") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-reporting-unbilled-report">{{ $t("t-reporting-unbilled-report") }}</span>
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
+                                    <span data-key="t-reporting-discounts-by-mpan">{{ $t("t-reporting-discounts-by-mpan") }}</span>
+                                </b-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>                
             </ul>
         </template>
     </b-container>

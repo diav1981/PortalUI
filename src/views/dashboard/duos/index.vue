@@ -103,6 +103,9 @@ export default {
 };
 </script>
 
+
+
+
 <template>
   <Layout>
     <PageHeader :title="title" :items="items" />
@@ -113,13 +116,8 @@ export default {
             <b-card no-body>
               <b-card-body class="p-0">
  
-                      <div class="input-group">
-                        <label class="input-group-text" style="width:150px" for="igDateType" >Month Type</label>
-                        <select class="form-select" id="igDateType" v-model="selectedMonthType" @change="handleDropdownChange">
-                          <option value="1">Delivery</option>
-                          <option value="2">Invoice</option>
-                        </select>
-                        <label class="input-group-text" style="width:150px" for="igDateType">Month</label>
+                <div class="input-group">
+                        <label class="input-group-text" style="width:150px" for="igMonth">Delivery Month</label>
                         <select class="form-select" id="igMonth" v-model="selectedMonth" @change="handleDropdownChange">
                           <option v-for="monthYear in deliveryMonths" :key="monthYear.dt" :value="monthYear.dt">{{ monthYear.monthYearString }}</option>
                         </select>
@@ -131,57 +129,154 @@ export default {
                           <option v-for="mpan in mpanList" :key="mpan.mpanCore" :value="mpan.mpanCore">{{ mpan.mpanCore }}</option>
                         </select>
                       </div>
-                            <b-row class="align-items-end">
-                              <b-col sm="12">
-                                <div class="p-3">
-                                  <div v-if="isDataAvailable">
-                                    <div class="mt-3 table-hscroll">
-                                      <table class="table table-nowrap table-hover">
-                                          <thead>
-                                            <tr>
-                                              <th>Invoice Date</th>
-                                              <th>Period Start</th>
-                                              <th>Period End</th>
-                                              <th>HH/NHH</th>
-                                              <th>Invoice Type</th>
-                                              <th>Tariff Code</th>
-                                              <th>Days Billed</th>
-                                              <th>LLF</th>
-                                              <th>Charge Description</th>
-                                              <th>UoM</th>
-                                              <th>Units Billed</th>
-                                              <th>Price Per Unit</th>
-                                              <th>Total Charge</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr v-for="item in duosData" :key="item.invoiceDate">
-                                              <td>{{ new Date(item.invoiceDate).toLocaleDateString("en-GB") }}</td>
-                                              <td>{{ new Date(item.periodStart).toLocaleDateString("en-GB") }}</td>
-                                              <td>{{ new Date(item.periodEnd).toLocaleDateString("en-GB") }}</td>
-                                              <td>{{ item.hhnhh }}</td>
-                                              <td>{{ item.invoiceType }}</td>
-                                              <td>{{ item.tariffCode }}</td>
-                                              <td>{{ item.daysBilled }}</td>
-                                              <td>{{ item.llf ? item.llf : 'N/A' }}</td>
-                                              <td>{{ item.chargeDescription }}</td>
-                                              <td>{{ item.uoM }}</td>
-                                              <td>{{ item.unitsBilled }}</td>
-                                              <td>{{ item.pricePerUnit.toFixed(2) }}</td>
-                                              <td>{{ item.totalCharge.toFixed(2) }}</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
+
+                      <div class="input-group">
+                        <label class="input-group-text" style="width:150px" for="igSettlementRun">Settlement Run</label>
+                        <select class="form-select" id="igSettlementRun" v-model="selectedSettlementRun" @change="handleDropdownChange">
+                          <option v-for="sr in settlementRunList" :key="sr.settlementRunType" :value="sr.settlementRunType">{{ sr.description }}</option>
+                        </select>
+                      </div>
+
+                      <ul class="nav nav-tabs mb-3" role="tablist">
+                            <li class="nav-item">
+                                <b-link class="nav-link active" data-bs-toggle="tab" href="#msp" role="tab"
+                                    aria-selected="true">
+                                    MSP
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link" data-bs-toggle="tab" href="#gsp" role="tab"
+                                    aria-selected="false">
+                                    GSP
+                                </b-link>
+                            </li>
+                            <li class="nav-item">
+                                <b-link class="nav-link" data-bs-toggle="tab" href="#nbp" role="tab"
+                                    aria-selected="false">
+                                    NBP
+                                </b-link>
+                            </li>                            
+                        </ul>
+                        <div class="tab-content text-muted">
+                            <div class="tab-pane" id="msp" role="tabpanel">
+                              <b-row class="align-items-end">
+                                <b-col sm="12">
+                                  <div class="p-3">
+                                    <div v-if="hasMspData">
+                                      <div class="mt-3 table-hscroll">
+                                        <table class="table table-nowrap table-hover">
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">Date</th>
+                                                    <!-- Generate columns up to 50 -->
+                                                    <template v-for="column in 50" :key="column">
+                                                      <th scope="col" >{{ column }}</th>
+                                                    </template>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Generate rows for each day of the month -->
+                                                <template v-for="item in mspData" :key="item.BillableDate">
+                                                  <tr>
+                                                    <th scope="row">
+                                                      {{new Date(item.BillableDate).toLocaleDateString("en-GB")}}
+                                                    </th>
+                                                    <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
+                                                  </tr>
+                                                </template>
+                                            </tbody>
+                                          </table>
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div v-else class="centered-children-200">
-                                    <p>No Data Available</p>
-                                  </div>   
-                                </div>                               
-                              </b-col>
-                              <b-col sm="4">
-                              </b-col>
-                            </b-row>
+                                    <div v-else class="centered-children-200">
+                                      <p>No Data Available</p>
+                                    </div>   
+                                  </div>                               
+                                </b-col>
+                                <b-col sm="4">
+                                </b-col>
+                              </b-row>
+                            </div>
+                            <div class="tab-pane active" id="gsp" role="tabpanel">
+                              <b-row class="align-items-end">
+                                <b-col sm="12">
+                                  <div class="p-3">
+                                    <div v-if="hasGspData">
+                                      <div class="mt-3 table-hscroll">
+                                        <table class="table table-nowrap table-hover">
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">Date</th>
+                                                    <!-- Generate columns up to 50 -->
+                                                    <template v-for="column in 50" :key="column">
+                                                      <th scope="col" >{{ column }}</th>
+                                                    </template>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Generate rows for each day of the month -->
+                                                <template v-for="item in gspData" :key="item.billableDate">
+                                                  <tr>
+                                                    <th scope="row">
+                                                      {{new Date(item.billableDate).toLocaleDateString("en-GB")}}
+                                                    </th>
+                                                    <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
+                                                  </tr>
+                                                </template>
+                                            </tbody>
+                                          </table>
+                                      </div>
+                                    </div>
+                                    <div v-else class="centered-children-200">
+                                      <p>No Data Available</p>
+                                    </div>   
+                                  </div> 
+                                </b-col>
+                                <b-col sm="4">
+                                </b-col>
+                              </b-row>
+                            </div>
+                            <div class="tab-pane active" id="nbp" role="tabpanel">
+                              <b-row class="align-items-end">
+                                <b-col sm="12">
+                                  <div class="p-3">
+                                    <div v-if="hasNbpData">
+                                      <div class="mt-3 table-hscroll">
+                                        <table class="table table-nowrap table-hover">
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">Date</th>
+                                                    <!-- Generate columns up to 50 -->
+                                                    <template v-for="column in 50" :key="column">
+                                                      <th scope="col" >{{ column }}</th>
+                                                    </template>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Generate rows for each day of the month -->
+                                                <template v-for="item in nbpData" :key="item.billableDate">
+                                                  <tr>
+                                                    <th scope="row">
+                                                      {{new Date(item.billableDate).toLocaleDateString("en-GB")}}
+                                                    </th>
+                                                    <td v-for="(value, index) in 50" :key="index">{{ item['_' + (index + 1)] }}</td>
+                                                  </tr>
+                                                </template>
+                                            </tbody>
+                                          </table>
+                                      </div>
+                                    </div>
+                                    <div v-else class="centered-children-200">
+                                      <p>No Data Available</p>
+                                    </div>   
+                                  </div> 
+                                </b-col>
+                                <b-col sm="4">
+                                </b-col>
+                              </b-row>
+                            </div>                            
+                        </div>
+
               </b-card-body>
             </b-card>
           </b-col>
@@ -189,3 +284,4 @@ export default {
     </b-row>
   </Layout>
 </template>
+

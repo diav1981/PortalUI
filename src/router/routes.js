@@ -106,6 +106,14 @@ export default [
     component: () => import("../views/dashboard/meteredconsumption/index"),
   },
   {
+    path: "/industrypricing/auto/bsuos",
+    name: "dashboard-metered-consumption",
+    meta: {
+      title: "BSUoS", authRequired: true,
+    },
+    component: () => import("../views/industrypricing/auto/bsuos/index"),
+  },  
+  {
     path: "/dashboard/tlf",
     name: "dashboard-tlf",
     meta: {
