@@ -6,3 +6,5 @@ RUN Expand-Archive nodejs.zip -DestinationPath C:\;
 RUN Rename-Item "C:\\node-v12.4.0-win-x64" c:\nodejs
 RUN cd c:\nodejs
 RUN dir
+
+FROM mcr.microsoft.com/windows/nanoserver:1803
