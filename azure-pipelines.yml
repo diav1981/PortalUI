@@ -49,3 +49,4 @@ steps:
     repository: 'test1'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    arguments: '--build-arg source=dist'
