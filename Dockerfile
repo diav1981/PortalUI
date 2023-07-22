@@ -1,14 +1,11 @@
-FROM mcr.microsoft.com/windows/servercore:1803 as installer
+FROM node:latest as build-stage
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY ./ .
+RUN npm run build
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';$ProgressPreference='silentlyContinue';"]
-RUN Invoke-WebRequest -OutFile nodejs.zip -UseBasicParsing "https://nodejs.org/dist/v12.4.0/node-v12.4.0-win-x64.zip";
-RUN Expand-Archive nodejs.zip -DestinationPath C:\;
-RUN Rename-Item "C:\\node-v12.4.0-win-x64" c:\nodejs
-RUN cd c:\nodejs
-RUN dir
-
-FROM mcr.microsoft.com/windows/nanoserver:1803
-WORKDIR /nodejs
-COPY --from=installer /nodejs /nodejs
-RUN SETX PATH C:\nodejs
-RUN npm config set registry https://registry.npmjs.org/
+FROM nginx as production-stage
+RUN mkdir /app
+COPY --from=build-stage /app/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
