@@ -11,3 +11,4 @@ FROM mcr.microsoft.com/windows/nanoserver:1803
 WORKDIR /nodejs
 COPY --from=installer /nodejs /nodejs
 RUN SETX PATH C:\nodejs
+RUN npm config set registry https://registry.npmjs.org/
