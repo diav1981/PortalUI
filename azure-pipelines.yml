@@ -16,8 +16,12 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo helloe world
       yarn install
+    workingDirectory: '$(Build.SourcesDirectory)'
+  displayName: 'yarn install'
+- task: CmdLine@2
+  inputs:
+    script: |
       yarn build
     workingDirectory: '$(Build.SourcesDirectory)'
   displayName: 'yarn build'
