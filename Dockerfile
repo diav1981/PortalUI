@@ -4,10 +4,5 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';$ProgressPrefe
 RUN Invoke-WebRequest -OutFile nodejs.zip -UseBasicParsing "https://nodejs.org/dist/v12.4.0/node-v12.4.0-win-x64.zip";
 RUN Expand-Archive nodejs.zip -DestinationPath C:\;
 RUN Rename-Item "C:\\node-v12.4.0-win-x64" c:\nodejs
-
-FROM mcr.microsoft.com/windows/nanoserver:1803
-
-WORKDIR nodejs
-COPY --from=installer C:\nodejs\ .
-RUN SETX PATH C:\nodejs
-RUN npm config set registry https://registry.npmjs.org/
+RUN cd c:\nodejs
+RUN dir
