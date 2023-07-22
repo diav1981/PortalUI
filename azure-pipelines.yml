@@ -35,6 +35,13 @@ steps:
       **/*dockerfile*
     TargetFolder: '$(Build.ArtifactStagingDirectory)/Docker'
 
+- task: CopyFiles@2
+  displayName: 'Copy Dist Folder'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      **/dist/**
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
 
 - task: Docker@2
   inputs:
