@@ -7,7 +7,9 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  name: On-Prem
+  demands:
+  - yarn
 
 steps:
 - task: NodeTool@0
