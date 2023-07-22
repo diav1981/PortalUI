@@ -8,3 +8,4 @@ RUN cd c:\nodejs
 RUN dir
 
 FROM mcr.microsoft.com/windows/nanoserver:1803
+COPY --from=installer /nodejs /nodejs
