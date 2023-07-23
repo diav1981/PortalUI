@@ -1304,7 +1304,7 @@
                                 <div class="collapse menu-dropdown" id="industrypricingmanual">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <router-link to="/auth/signup-cover" class="nav-link" data-key="t-industry-pricing-manual-aahedc">
+                                            <router-link to="/industrypricing/manual/aahedc" class="nav-link" data-key="t-industry-pricing-manual-aahedc">
                                                 {{ $t("t-industry-pricing-manual-aahedc") }}
                                             </router-link>
                                         </li>

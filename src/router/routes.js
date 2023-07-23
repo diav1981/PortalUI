@@ -122,6 +122,14 @@ export default [
     component: () => import("../views/industrypricing/auto/rcrc/index"),
   },  
   {
+    path: "/industrypricing/manual/aahedc",
+    name: "industry-pricing-manual-aahedc",
+    meta: {
+      title: "AAHEDC", authRequired: true,
+    },
+    component: () => import("../views/industrypricing/manual/aahedc/index"),
+  },    
+  {
     path: "/dashboard/tlf",
     name: "dashboard-tlf",
     meta: {
