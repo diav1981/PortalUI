@@ -6,4 +6,4 @@ RUN powershell -NoProfile -Command Remove-Item -Recurse C:\inetpub\wwwroot\*
 
 WORKDIR /inetpub/wwwroot
 
-COPY ${source:-dist/} .
+COPY . .
