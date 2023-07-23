@@ -41,7 +41,7 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       **/dist/**
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/dist'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: Docker@2
   inputs:
