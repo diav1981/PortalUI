@@ -1334,37 +1334,37 @@
                     <div class="collapse menu-dropdown" id="governmentlevies">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-cfd-socl">
+                                <router-link to="/governmentlevies/cfdsocl" class="nav-link" data-key="t-governmentlevies-cfd-socl">
                                     {{ $t("t-governmentlevies-cfd-socl") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-cfd-soil">
+                                <router-link to="/governmentlevies/cfdsoil" class="nav-link" data-key="t-governmentlevies-cfd-soil">
                                     {{ $t("t-governmentlevies-cfd-soil") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-fit">
+                                <router-link to="/governmentlevies/fit" class="nav-link" data-key="t-governmentlevies-fit">
                                     {{ $t("t-governmentlevies-fit") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-cm-settlement">
+                                <router-link to="/governmentlevies/settlement" class="nav-link" data-key="t-governmentlevies-cm-settlement">
                                     {{ $t("t-governmentlevies-cm-settlement") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-cm-supplier-charge">
+                                <router-link to="/governmentlevies/cmsuppliercharge" class="nav-link" data-key="t-governmentlevies-cm-supplier-charge">
                                     {{ $t("t-governmentlevies-cm-supplier-charge") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-renewables-obligation">
+                                <router-link to="/governmentlevies/renewablesobligation" class="nav-link" data-key="t-governmentlevies-renewables-obligation">
                                     {{ $t("t-governmentlevies-renewables-obligation") }}
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link to="/pages/starter" class="nav-link" data-key="t-governmentlevies-climate-change-levy">
+                                <router-link to="/governmentlevies/ccl" class="nav-link" data-key="t-governmentlevies-climate-change-levy">
                                     {{ $t("t-governmentlevies-climate-change-levy") }}
                                 </router-link>
                             </li>

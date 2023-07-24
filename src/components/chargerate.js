@@ -1,4 +1,3 @@
-<script>
 import axios from 'axios';
 
 export default {
@@ -7,6 +6,7 @@ export default {
             chargeData: null,
             uniqueChargeRateTypesArray: null,
             flattenedChargeData: null,
+            chargeRateId: null,
         };
     },
     computed:{
@@ -15,6 +15,13 @@ export default {
     }, 
   },  
   methods:{
+    async setChargeRateId(id){
+        this.chargeRateId = id;
+        console.log('setting new charge rate and called fetch')
+        console.log(this.chargeRateId);
+        await this.fetchChargeData();
+        console.log('fetch call completed');
+    },
     getUniqueChargeRateTypes() {
       const uniqueChargeRateTypes = new Map();
 
@@ -64,23 +71,22 @@ export default {
       }
       return ''; // Return an empty string if chargeRateType not found
     },
-    async fetchChargeData(chargeRateId) {
-        const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/ByRateId/${chargeRateId}`;
+    async fetchChargeData() {        
+        const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/ByRateId/${this.chargeRateId}`;
+
         try {
             const response = await axios.get(url);
             this.chargeData = response.data;
             this.getUniqueChargeRateTypes();
             this.flattenData();
+            console.log(this.uniqueChargeRateTypesArray);
         } catch (error) {
             console.error('Error fetching charge rate data:', error);
         }
     },   
   },
+  async mounted(){
+    console.log('mounted 2');
+    console.log(this.flattenedChargeData);
+  }  
 };
-</script>
-
-<template>
-    <div>
-
-    </div>
-</template>

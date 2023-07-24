@@ -128,6 +128,62 @@ export default [
       title: "AAHEDC", authRequired: true,
     },
     component: () => import("../views/industrypricing/manual/aahedc/index"),
+  },  
+  {
+    path: "/governmentlevies/ccl",
+    name: "government-levies-ccl",
+    meta: {
+      title: "CCL", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/ccl"),
+  },    
+  {
+    path: "/governmentlevies/cfdsocl",
+    name: "government-levies-cfdsocl",
+    meta: {
+      title: "CFD SOCL", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/cfdsocl"),
+  },    
+  {
+    path: "/governmentlevies/cfdsoil",
+    name: "government-levies-cfdsoil",
+    meta: {
+      title: "CFD SOIL", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/cfdsoil"),
+  },    
+  {
+    path: "/governmentlevies/fit",
+    name: "government-levies-fit",
+    meta: {
+      title: "FiT", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/fit"),
+  },    
+  {
+    path: "/governmentlevies/settlement",
+    name: "government-levies-settlement",
+    meta: {
+      title: "CM Settlement", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/settlement"),
+  },    
+  {
+    path: "/governmentlevies/cmsuppliercharge",
+    name: "government-levies-cmsuppliercharge",
+    meta: {
+      title: "CM Settlement", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/cmsuppliercharge"),
+  },    
+  {
+    path: "/governmentlevies/renewablesobligation",
+    name: "government-levies-renewablesobligation",
+    meta: {
+      title: "Renewables Obligation", authRequired: true,
+    },
+    component: () => import("../views/governmentlevies/renewablesobligation"),
   },    
   {
     path: "/dashboard/tlf",
