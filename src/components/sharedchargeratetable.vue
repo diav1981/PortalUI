@@ -4,7 +4,8 @@
     import ChargeRateComponent from "./chargerate.js";
     import axios from 'axios';
     import VueDatePicker from '@vuepic/vue-datepicker';
-    import '@vuepic/vue-datepicker/dist/main.css'
+    import '@vuepic/vue-datepicker/dist/main.css';
+    import MessagePopup from './shared/message.vue';
 
     export default {
     mixins: [ChargeRateComponent], // Using the ChargeRateComponent as a mixin
@@ -17,6 +18,7 @@
     },
     components: {
      VueDatePicker,
+     MessagePopup,
     },
     data() {
     return {
@@ -52,6 +54,10 @@
     }
     },    
     methods:{
+        showPopup(title, headline, message) {
+            // Call the showMessage method of the MessagePopup component
+            this.$refs.messagePopup.showMessage(title, headline, message);
+        },
         onEditClicked(charge){
             console.log('edit clicked');
             console.log(charge);
@@ -159,30 +165,32 @@
 
                 if (response.status === 200) {
                     // Success! Handle the success scenario here.
-                    console.log('DELETE request successful.');
                     this.modalDeletePopup = false;
+                    this.showPopup('All Done', '', 'The charge was successfully removed');
                 } else {
                     // Handle other status codes if needed.
-                    console.log(`DELETE request failed with status: ${response.status}`);
                     this.modalDeletePopup = false;
+                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${response.status}. Might be one for App Support`);
                 }
                 } catch (error) {
+                    console.log('error status is');
+                    console.log(error.response.status);
                     // Handle errors if the request fails.
                     if (error.response && error.response.status)
                     {
                         if(error.response.status === 400)
                         {
-                            this.errorText = error.response.data;
                             this.modalDeletePopup = false;
-                            console.log(`DELETE request failed with status: ${error.response.data}`);
+                            this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with the following message. '${error.response.data}'`);
                         }
                     }
                     if (error.response && error.response.data && error.response.data) {
                     // The API returned an error message.
-                    console.error('API Error:', error.response.data);
+                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. Might be one for App Support.
+                    The following text might help them. '${error.response.data}'`);
                     } else {
                     // Handle other errors.
-                    console.error('An error occurred while processing the DELETE request:', error);
+                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. No other information was given. Defintely one for App Support.'`);
                     }
 
                 }
@@ -235,7 +243,7 @@
                                               <td>{{  new Date(item.validityStart).toLocaleDateString("en-GB") }}</td>
                                               <td>{{ new Date(item.validityEnd).toLocaleDateString("en-GB") }}</td>
                                               <td v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
-                                                {{ getChargeValue(item, chargeRateType.id) }}<i @click="onEditClicked(item)" class="ri-edit-2-line"></i><i @click="onDeleteClicked(item)" class="ri-delete-bin-line"></i>
+                                                {{ getChargeValue(item, chargeRateType.id) }}<i @click="showPopup('test1','test2','test3')" class="ri-edit-2-line"></i><i @click="onDeleteClicked(item)" class="ri-delete-bin-line"></i>
                                             </td>
                                           </tr>
                                         </template>
@@ -291,6 +299,8 @@
                 </b-col>
                 <b-col lg="12">
                     <div class="hstack gap-2 justify-content-end">
+                        <button @click="showMessage('Important Message', 'test', 'This is a message box in a base component!')">Show Message Box</button>
+
                         <b-button type="button" variant="light" @click="modalEditPopup = false">
                             Cancel</b-button>
                         <b-button type="submit" variant="primary" @click="submitEditedCharge">Submit</b-button>
@@ -341,5 +351,10 @@
         <div class="modal-footer v-modal-footer">
             <b-button type="button" variant="primary" @click="modalerrorPopup = false">Ok</b-button>
         </div>
-    </b-modal>            
+    </b-modal>         
+    
+    
+
+    <MessagePopup ref="messagePopup"></MessagePopup>
+
 </template>
