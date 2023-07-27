@@ -74,7 +74,6 @@ export default {
                     }
 
                 }
-                this.chargeIdToDelete = null;
                 mitt.emit('refreshView');
             },    
   },

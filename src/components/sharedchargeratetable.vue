@@ -1,12 +1,9 @@
-<!-- SharedChargeRateTable.vue -->
-
 <script>
     import ChargeRateComponent from "./chargerate.js";
-    import axios from 'axios';
-    import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     import MessagePopup from './shared/message.vue';
     import DeleteChargePopup from './shared/deletecharge.vue';
+    import EditChargePopup from './shared/editcharge.vue';
     import mitt from './shared/mitt.js';
 
     export default {
@@ -19,40 +16,12 @@
     }, 
     },
     components: {
-     VueDatePicker,
      MessagePopup,
      DeleteChargePopup,
+     EditChargePopup,
     },
     data() {
     return {
-        modalEditPopup: false,
-        modalDeletePopup: false,
-
-        errorText: null,
-        chargeIdToDelete: null,
-        chargeIdToEdit: null,
-
-        selectedSource: null,
-
-        dateFrom: null,
-        dateTo: null,
-
-        sourceData: null,
-
-        /*edit popup fields*/
-        editedChargeSourceId: null,
-        editedChargeValue: null,
-        editedChargeValidFrom: null,
-        editedChargeValidTo: null,
-
-        /*delete popup fields*/
-        deletedPopupCharge: null,
-        deletedPopupChargeSource: null,
-        deletedPopupChargeValidFrom: null,
-        deletedPopupChargeValidTo: null,
-        deletedPopupChargeTypeName: null,
-        deletedPopupChargeValue: null,
-
     }
     },    
     methods:{
@@ -66,145 +35,9 @@
         showDeletePopup(charge){
             this.$refs.deleteChargePopup.showDeletePopup(charge);
         },   
-        onEditClicked(charge){
-            console.log('edit clicked');
-            console.log(charge);
-            this.chargeIdToEdit = charge.chargeRateTypes[0].id;
-            this.editedChargeRateTypeId = charge.chargeRateTypes[0].chargeRateTypeId;           
-            this.editedChargeSourceId = charge.dataSetId,
-            this.editedChargeValue = charge.chargeRateTypes[0].chargeValue;
-            this.editedChargeValidFrom = charge.validityStart;
-            this.editedChargeValidTo = charge.validityEnd;
-
-
-            console.log('charge edit is');
-            console.log(charge.chargeRateTypes[0]);
-
-            
-            console.log('charge is');
-            console.log(charge);
-
-            console.log((charge.chargeRateTypes[0].chargeValue));
-                        
-            this.modalEditPopup = true;
-        },
-        onDeleteClicked(charge){
-            this.chargeIdToDelete = charge.chargeRateTypes[0].id;
-            this.deletedPopupCharge = charge;
-            this.deletedPopupChargeSource = charge.dataSetDesc;
-            this.deletedPopupChargeValidFrom = new Date(charge.validityStart).toLocaleDateString("en-GB");
-            this.deletedPopupChargeValidTo =new Date(charge.validityEnd).toLocaleDateString("en-GB");
-            this.deletedPopupChargeValue = charge.chargeRateTypes[0].chargeValue;
-            console.log(this.deletedPopupCharge);
-            this.modalDeletePopup = true;
-        },
-        async fetchSourceData() {        
-            const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Source/`;
-
-            try {
-                const response = await axios.get(url);
-                this.sourceData = response.data;
-            } catch (error) {
-                console.error('Error fetching source data:', error);
-            }
-        },   
-        async submitEditedCharge()
-        {
-            console.log(this.chargeIdToEdit);
-            console.log(this.editedChargeSourceId),
-            console.log(this.editedChargeValue);
-            console.log(this.editedChargeValidFrom);
-            console.log(this.editedChargeValidTo);
-
-            const dataToSend = {
-                ChargeId: this.chargeIdToEdit,
-                ChargeTypeId: this.editedChargeRateTypeId,
-                SourceId: this.editedChargeSourceId,
-                ValidFrom: this.editedChargeValidFrom,
-                ValidTo:this.editedChargeValidTo,
-                Value: this.editedChargeValue
-            };
-
-            try
-            {
-                const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/`;
-
-
-                const response = await axios.post(url, dataToSend)
-                console.log(response);
-                if (response.status === 200) {
-                        // Success! Handle the success scenario here.
-                        console.log('POST request successful.');
-                        this.modalEditPopup = false;
-                    } else {
-                        // Handle other status codes if needed.
-                        console.log(`POST request failed with status: ${response.status}`);
-                        this.modalEditPopup = false;
-                    }
-            } catch (error) {
-                // Handle errors if the request fails.
-                if (error.response && error.response.status)
-                {
-                    if(error.response.status === 400)
-                    {
-                        this.errorText = error.response.data;
-                        this.modalEditPopup = false;
-                        console.log(`POST request failed with status: ${error.response.data}`);
-                    }
-                }
-                if (error.response && error.response.data && error.response.data) {
-                // The API returned an error message.
-                console.error('API Error:', error.response.data);
-                } else {
-                // Handle other errors.
-                console.error('An error occurred while processing the POST request:', error);
-                }
-
-            }
-            this.chargeIdToEdit = null;
-            this.setChargeRateId(this.chargeRateIdProp);
-
-        },
-        async deleteCharge(){
-            try {
-                const endpointUrl = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/Delete/${this.chargeIdToDelete}`;
-
-                const response = await axios.delete(endpointUrl);
-
-                if (response.status === 200) {
-                    // Success! Handle the success scenario here.
-                    this.modalDeletePopup = false;
-                    this.showPopup('All Done', '', 'The charge was successfully removed');
-                } else {
-                    // Handle other status codes if needed.
-                    this.modalDeletePopup = false;
-                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${response.status}. Might be one for App Support`);
-                }
-                } catch (error) {
-                    console.log('error status is');
-                    console.log(error.response.status);
-                    // Handle errors if the request fails.
-                    if (error.response && error.response.status)
-                    {
-                        if(error.response.status === 400)
-                        {
-                            this.modalDeletePopup = false;
-                            this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with the following message. '${error.response.data}'`);
-                        }
-                    }
-                    if (error.response && error.response.data && error.response.data) {
-                    // The API returned an error message.
-                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. Might be one for App Support.
-                    The following text might help them. '${error.response.data}'`);
-                    } else {
-                    // Handle other errors.
-                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. No other information was given. Defintely one for App Support.'`);
-                    }
-
-                }
-                this.chargeIdToDelete = null;
-                this.setChargeRateId(this.chargeRateIdProp);
-            },
+        showEditPopup(charge){
+            this.$refs.editChargePopup.showEditPopup(charge);
+        },           
     },   
     watch: {
     chargeRateIdProp: {
@@ -214,9 +47,6 @@
         },
     },
     },
-    mounted(){
-        this.fetchSourceData();
-    },  
     created() {
     // Listen for the custom event "button-clicked" from the mitt emitter
         mitt.on('refreshView', this.refreshView);
@@ -230,105 +60,59 @@
 
 <template>
     <b-row>
+        <b-row>
+        <b-col cols="12">
+            <b-card no-body>
+            <b-card-body class="p-0">
+                            <b-row class="align-items-end">
+                                <b-col sm="12">
+                                <div class="p-3">
+                                    <div v-if="hasData">
+                                    <div class="mt-3 table-hscroll">
+                                        <table class="table table-nowrap table-hover">
+                                        <thead>
+                                            <tr scope="col">
+                                            <th scope="col">Source</th>
+                                            <th scope="col">Valid From</th>
+                                            <th scope="col">Valid To</th>
+                                            <th v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
+                                                {{ chargeRateType.description }}
+                                            </th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                                <!-- Generate rows for each day of the month -->
+                                                <template v-for="item in flattenedChargeData" :key="item.id">
+                                                <tr>
+                                                    <td>{{ item.dataSetDesc }}</td>
+                                                    <td>{{  new Date(item.validityStart).toLocaleDateString("en-GB") }}</td>
+                                                    <td>{{ new Date(item.validityEnd).toLocaleDateString("en-GB") }}</td>
+                                                    <td v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
+                                                        {{ getChargeValue(item, chargeRateType.id) }}<i @click="showEditPopup(item)" class="ri-edit-2-line"></i><i @click="showDeletePopup(item)" class="ri-delete-bin-line"></i>
+                                                    </td>
+                                                </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </div>
+                                    <div v-else class="centered-children-200">
+                                    <p>No Data Available</p>
+                                    </div>   
+                                </div>                               
+                                </b-col>
+                                <b-col sm="4">
+                                </b-col>
+                            </b-row>
 
-<b-row>
-  <b-col cols="12">
-    <b-card no-body>
-      <b-card-body class="p-0">
-                      <b-row class="align-items-end">
-                        <b-col sm="12">
-                          <div class="p-3">
-                            <div v-if="hasData">
-                              <div class="mt-3 table-hscroll">
-                                <table class="table table-nowrap table-hover">
-                                  <thead>
-                                    <tr scope="col">
-                                      <th scope="col">Source</th>
-                                      <th scope="col">Valid From</th>
-                                      <th scope="col">Valid To</th>
-                                      <th v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
-                                        {{ chargeRateType.description }}
-                                      </th>
-                                    </tr>
-                                  </thead>
-                                    <tbody>
-                                        <!-- Generate rows for each day of the month -->
-                                        <template v-for="item in flattenedChargeData" :key="item.id">
-                                          <tr>
-                                            <td>{{ item.dataSetDesc }}</td>
-                                              <td>{{  new Date(item.validityStart).toLocaleDateString("en-GB") }}</td>
-                                              <td>{{ new Date(item.validityEnd).toLocaleDateString("en-GB") }}</td>
-                                              <td v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
-                                                {{ getChargeValue(item, chargeRateType.id) }}<i @click="showPopup('test1','test2','test3')" class="ri-edit-2-line"></i><i @click="showDeletePopup(item)" class="ri-delete-bin-line"></i>
-                                            </td>
-                                          </tr>
-                                        </template>
-                                    </tbody>
-                                  </table>
-                              </div>
-                            </div>
-                            <div v-else class="centered-children-200">
-                              <p>No Data Available</p>
-                            </div>   
-                          </div>                               
-                        </b-col>
-                        <b-col sm="4">
-                        </b-col>
-                      </b-row>
+            </b-card-body>
+            </b-card>
+        </b-col>
+        </b-row>
+    </b-row>
 
-      </b-card-body>
-    </b-card>
-  </b-col>
-</b-row>
-</b-row>
-
-
-<b-modal v-model="modalEditPopup" hide-footer title="Edit Charge Rate" class="v-modal-custom">
-        <form action="javascript:void(0);">
-            <b-row class="g-3">
-                <b-col lg="12">
-                    <div class="input-group">
-                        <label class="input-group-text" style="width: 150px;" for="ogMonth">Source</label>
-                        <select class="form-select" id="ogSource" v-model="editedChargeSourceId">
-                            <option v-for="source in sourceData" :key="source.id" :value="source.id">{{ source.description }}</option>
-                        </select>
-                    </div>
-                </b-col>
-                <b-col lg="12">
-                    <div class="input-group">
-                        <label for="dtFrom" class="form-label">Valid From</label>
-                        <VueDatePicker dark auto-apply :enable-time-picker="false" id="dtFrom" v-model="editedChargeValidFrom"></VueDatePicker>
-                    </div>
-                </b-col>
-                <b-col lg="12">
-                    <div>
-                        <label for="dtTo" class="form-label">Valid To</label>
-                        <VueDatePicker dark auto-apply :enable-time-picker="false" id="dtTo" v-model="editedChargeValidTo"></VueDatePicker>
-                    </div>
-                </b-col>                
-                <b-col lg="12">
-                    <div class="input-group">
-                        <label class="input-group-text" style="width:150px" for="chargeValueInput">Value</label>
-                        <input type="number" class="form-control" id="chargeValueInput"
-                        placeholder="Enter The Charge Value" v-model="editedChargeValue"/>
-                      </div>
-                </b-col>
-                <b-col lg="12">
-                    <div class="hstack gap-2 justify-content-end">
-                        <button @click="showMessage('Important Message', 'test', 'This is a message box in a base component!')">Show Message Box</button>
-
-                        <b-button type="button" variant="light" @click="modalEditPopup = false">
-                            Cancel</b-button>
-                        <b-button type="submit" variant="primary" @click="submitEditedCharge">Submit</b-button>
-                    </div>
-                </b-col>
-            </b-row>
-        </form>
-    </b-modal>
-
-    <!-- Default Modals -->
-    
     <MessagePopup ref="messagePopup"></MessagePopup>
     <DeleteChargePopup ref="deleteChargePopup"></DeleteChargePopup>
+    <EditChargePopup ref="editChargePopup"></EditChargePopup>
 
 </template>
