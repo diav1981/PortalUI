@@ -6,6 +6,8 @@
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
     import MessagePopup from './shared/message.vue';
+    import DeleteChargePopup from './shared/deletecharge.vue';
+    import mitt from './shared/mitt.js';
 
     export default {
     mixins: [ChargeRateComponent], // Using the ChargeRateComponent as a mixin
@@ -19,12 +21,12 @@
     components: {
      VueDatePicker,
      MessagePopup,
+     DeleteChargePopup,
     },
     data() {
     return {
         modalEditPopup: false,
         modalDeletePopup: false,
-        modalerrorPopup: false,
 
         errorText: null,
         chargeIdToDelete: null,
@@ -54,10 +56,16 @@
     }
     },    
     methods:{
+        refreshView(){
+            this.setChargeRateId(this.chargeRateIdProp);
+        },
         showPopup(title, headline, message) {
             // Call the showMessage method of the MessagePopup component
             this.$refs.messagePopup.showMessage(title, headline, message);
         },
+        showDeletePopup(charge){
+            this.$refs.deleteChargePopup.showDeletePopup(charge);
+        },   
         onEditClicked(charge){
             console.log('edit clicked');
             console.log(charge);
@@ -208,7 +216,15 @@
     },
     mounted(){
         this.fetchSourceData();
-    }
+    },  
+    created() {
+    // Listen for the custom event "button-clicked" from the mitt emitter
+        mitt.on('refreshView', this.refreshView);
+    },
+    beforeUnmount() {
+        // Don't forget to remove the event listener when the component is unmounted
+        mitt.off('refreshView', this.refreshView);
+    },    
     };
 </script>
 
@@ -243,7 +259,7 @@
                                               <td>{{  new Date(item.validityStart).toLocaleDateString("en-GB") }}</td>
                                               <td>{{ new Date(item.validityEnd).toLocaleDateString("en-GB") }}</td>
                                               <td v-for="chargeRateType in uniqueChargeRateTypesArray" :key="chargeRateType.id">
-                                                {{ getChargeValue(item, chargeRateType.id) }}<i @click="showPopup('test1','test2','test3')" class="ri-edit-2-line"></i><i @click="onDeleteClicked(item)" class="ri-delete-bin-line"></i>
+                                                {{ getChargeValue(item, chargeRateType.id) }}<i @click="showPopup('test1','test2','test3')" class="ri-edit-2-line"></i><i @click="showDeletePopup(item)" class="ri-delete-bin-line"></i>
                                             </td>
                                           </tr>
                                         </template>
@@ -311,50 +327,8 @@
     </b-modal>
 
     <!-- Default Modals -->
-    <b-modal v-model="modalDeletePopup" hide-footer title="Delete Charge Rate?" class="v-modal-custom">
-    <h5 class="fs-15">This action cannot be undone</h5>
-    <b-row class="g-3">
-        <b-col lg="12">
-            <div class="input-group">
-                <label class="input-group-text" style="width: 150px;">Source</label>
-                <label class="input-group-text" style="flex:1">{{ deletedPopupChargeSource }}</label>              
-            </div>
-        </b-col>
-        <b-col lg="12">
-            <div class="input-group">
-                <label class="input-group-text" style="width: 150px;">Valid From</label>
-                <label class="input-group-text" style="flex:1">{{ deletedPopupChargeValidFrom }}</label>              
-            </div>
-        </b-col>
-        <b-col lg="12">
-            <div class="input-group">
-                <label class="input-group-text" style="width: 150px;">Valid To</label>
-                <label class="input-group-text" style="flex:1">{{ deletedPopupChargeValidTo }}</label> 
-            </div>
-        </b-col>
-        <b-col lg="12">
-            <div class="input-group">
-                <label class="input-group-text" style="width: 150px;">Value</label>
-                <label class="input-group-text" style="flex:1">{{ deletedPopupChargeValue }}</label>              
-            </div>
-        </b-col>
-    </b-row>
-    <div class="modal-footer v-modal-footer">
-        <b-button type="button" variant="light" @click="modalDeletePopup = false">Cancel</b-button>
-        <b-button type="button" variant="primary" @click="deleteCharge">Delete Charge</b-button>
-    </div>
-    </b-modal>
-    <!-- Default Modals -->
-    <b-modal v-model="modalerrorPopup" hide-footer title="Oh no" class="v-modal-custom">
-        <h5 class="fs-15">:(</h5>
-        <p class="text-muted">{{errorText}}</p>
-        <div class="modal-footer v-modal-footer">
-            <b-button type="button" variant="primary" @click="modalerrorPopup = false">Ok</b-button>
-        </div>
-    </b-modal>         
     
-    
-
     <MessagePopup ref="messagePopup"></MessagePopup>
+    <DeleteChargePopup ref="deleteChargePopup"></DeleteChargePopup>
 
 </template>

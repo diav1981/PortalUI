@@ -45,6 +45,7 @@
     "leaflet": "^1.9.3",
     "lottie-web": "^5.10.1",
     "maska": "^1.5.0",
+    "mitt": "^3.0.1",
     "moment": "^2.29.4",
     "node-sass": "8.0.0",
     "prismjs": "^1.29.0",

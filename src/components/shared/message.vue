@@ -4,7 +4,7 @@ export default {
     return {
       show: false,
       title: '',
-      hadeline: '',
+      headline: '',
       message: '',
     };
   },
