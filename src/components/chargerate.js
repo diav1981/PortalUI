@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export default {
     data() {        
         return {
@@ -56,6 +57,7 @@ export default {
               {
                 chargeRateTypeId: item.chargeRateTypeId,
                 chargeValue: item.chargeValue,
+                id: item.id,
               },
             ],
           });
@@ -79,14 +81,12 @@ export default {
             this.chargeData = response.data;
             this.getUniqueChargeRateTypes();
             this.flattenData();
-            console.log(this.uniqueChargeRateTypesArray);
         } catch (error) {
             console.error('Error fetching charge rate data:', error);
         }
     },   
   },
   async mounted(){
-    console.log('mounted 2');
-    console.log(this.flattenedChargeData);
+
   }  
 };
