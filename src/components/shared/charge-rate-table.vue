@@ -1,10 +1,10 @@
 <script>
     import ChargeRateComponent from "./chargerate.js";
     import '@vuepic/vue-datepicker/dist/main.css';
-    import MessagePopup from './shared/message.vue';
-    import DeleteChargePopup from './shared/deletecharge.vue';
-    import EditChargePopup from './shared/editcharge.vue';
-    import mitt from './shared/mitt.js';
+    import MessagePopup from './message.vue';
+    import DeleteChargePopup from './delete-charge.vue';
+    import EditChargePopup from './edit-charge.vue';
+    import mitt from './/mitt.js';
 
     export default {
     mixins: [ChargeRateComponent], // Using the ChargeRateComponent as a mixin

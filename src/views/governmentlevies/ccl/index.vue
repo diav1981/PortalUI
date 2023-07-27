@@ -3,7 +3,7 @@
 import Layout from "../../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../../app.config";
-import SharedChargeRateTable from "../../../components/sharedchargeratetable.vue";
+import ChargeRateTable from "../../../components/shared/charge-rate-table.vue";
 
 export default {
   page: {
@@ -28,7 +28,7 @@ export default {
   components: {
     Layout,
     PageHeader,
-    SharedChargeRateTable,
+    ChargeRateTable,
   },
 };
 </script>
@@ -36,6 +36,6 @@ export default {
 <template>
   <Layout>
     <PageHeader :title="title" :items="items" />
-    <SharedChargeRateTable :chargeRateIdProp="2" />
+    <ChargeRateTable :chargeRateIdProp="2" />
   </Layout>
 </template>
