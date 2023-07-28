@@ -19,13 +19,9 @@ export default {
     },      
   methods: {
     showPopup(title, headline, message) {
-            // Call the showMessage method of the MessagePopup component
             this.$refs.messagePopup.showMessage(title, headline, message);
         },
     showDeletePopup(charge) {
-        console.log('charge is');
-        console.log(charge);
-
         this.chargeId = charge.chargeRateTypes[0].id;
         this.source = charge.dataSetDesc;
         this.validFrom = new Date(charge.validityStart).toLocaleDateString("en-GB");
@@ -37,7 +33,7 @@ export default {
             try {
                 console.log('chargeid is');
                 console.log(this.chargeId);
-                const endpointUrl = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/Delete/${this.chargeId}`;
+                const endpointUrl = `${this.chargeRatesApiDeleteUrl}/${this.chargeId}`;
 
                 const response = await axios.delete(endpointUrl);
 

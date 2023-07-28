@@ -3,12 +3,13 @@
     import VueDatePicker from '@vuepic/vue-datepicker';    
     import MessagePopup from './message.vue';
     import mitt from './mitt.js';
+    import base from './base/base-component.js'
 
 export default {
   data() {
     return {
         sourceData: null,
-
+        formAction: null,
         /*edit popup fields*/
         sourceId: null,
         value: null,
@@ -16,9 +17,13 @@ export default {
         validTo: null,
         chargeId: null,
         chargeRateTypeId: null,
+
+        isNewCharge: false,
+
         show: false,
     };
   },
+  mixins: [base],  
   components: {
     VueDatePicker,
     MessagePopup,
@@ -31,35 +36,48 @@ export default {
             // Call the showMessage method of the MessagePopup component
             this.$refs.messagePopup.showMessage(title, headline, message);
         },
+    resetVars(){
+        this.chargeId = null;
+        this.chargeRateTypeId = null;           
+        this.sourceId = null,
+        this.value = null;
+        this.validFrom = null;
+        this.validTo = null;
+    },
     showEditPopup(charge){
-        console.log('edit clicked');
-        console.log(charge);
-        this.chargeId = charge.chargeRateTypes[0].id;
-        this.chargeRateTypeId = charge.chargeRateTypes[0].chargeRateTypeId;           
-        this.sourceId = charge.dataSetId,
-        this.value = charge.chargeRateTypes[0].chargeValue;
-        this.validFrom = charge.validityStart;
-        this.validTo = charge.validityEnd;
+        if(charge){
+            console.log('edit clicked');
+            console.log(charge);
+            this.resetVars();
+            this.formAction = "Edit";
+            this.chargeId = charge.chargeRateTypes[0].id;
+            this.chargeRateTypeId = charge.chargeRateTypes[0].chargeRateTypeId;           
+            this.sourceId = charge.dataSetId,
+            this.value = charge.chargeRateTypes[0].chargeValue;
+            this.validFrom = charge.validityStart;
+            this.validTo = charge.validityEnd;
+            this.isNewCharge = false;
 
+            console.log('charge edit is');
+            console.log(charge.chargeRateTypes[0]);
 
-        console.log('charge edit is');
-        console.log(charge.chargeRateTypes[0]);
+            
+            console.log('charge is');
+            console.log(charge);
 
-        
-        console.log('charge is');
-        console.log(charge);
-
-        console.log((charge.chargeRateTypes[0].chargeValue));
-                    
+            console.log((charge.chargeRateTypes[0].chargeValue));
+        }            
+        else{
+            this.formAction = "Add";
+            console.log('add clicked');
+            this.resetVars();
+            this.isNewCharge = true;
+        }
         this.show = true;
     },
     async fetchSourceData() {        
-        console.log('callinf fetch data;)');
-            const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/Source/`;
             try {
-                const response = await axios.get(url);
-                console.log('source data')
-                console.log(response);
+                const response = await axios.get(this.sourceApiUrl);
                 this.sourceData = response.data;
             } catch (error) {
                 this.showPopup('Uh-oh', 'Couldn\'t Fetch Data',`There was a problem fetching some lookup data. If it keeps happening, show this to App Support. ${error}`);
@@ -77,10 +95,7 @@ export default {
 
         try
         {
-            const url = `http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/ChargeRates/`;
-
-
-            const response = await axios.post(url, dataToSend)
+            const response = await axios.put(this.chargeRatesApiUrl, dataToSend)
             console.log(response);
             if (response.status === 200) {
                     this.show = false;
@@ -112,7 +127,7 @@ export default {
 </script>
 
 <template>
-    <b-modal v-model="show" hide-footer title="Edit Charge Rate" class="v-modal-custom">
+    <b-modal v-model="show" hide-footer :title="formAction + ' Charge Rate'" class="v-modal-custom">
         <form action="javascript:void(0);">
             <b-row class="g-3">
                 <b-col lg="12">
