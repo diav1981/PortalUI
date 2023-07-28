@@ -103,11 +103,9 @@
     },
     },
     created() {
-    // Listen for the custom event "button-clicked" from the mitt emitter
         mitt.on('refreshView', this.refreshView);
     },
     beforeUnmount() {
-        // Don't forget to remove the event listener when the component is unmounted
         mitt.off('refreshView', this.refreshView);
     },    
     };
@@ -136,7 +134,6 @@
                                             </tr>
                                         </thead>
                                             <tbody>
-                                                <!-- Generate rows for each day of the month -->
                                                 <template v-for="item in flattenedChargeData" :key="item.id">
                                                 <tr>
                                                     <td>{{ item.dataSetDesc }}</td>

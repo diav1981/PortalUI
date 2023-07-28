@@ -3,26 +3,33 @@ export default {
         return {
             apiBaseUrl: 'http://gedv-rtpsfc.gazpromuk.intra:19081/DV_FlexPortalApi/flexportal_api/',
             endpoints: {
-                Source: 'Source',
+                Sources: 'Source',
                 ChargeRates: 'ChargeRates',
                 ChargeRatesDelete: 'ChargeRates/Delete',
-                ChargeRatesByRateId: 'ChargeRates/ByRateId'
+                ChargeRatesByRateId: 'ChargeRates/ByRateId',
+                Baskets: 'Basket',
+                Trades: 'Trade',
             },
         };
     },
     computed:{
+        basketApiUrl() {
+            return this.apiBaseUrl + this.endpoints.Baskets;
+          },
         sourceApiUrl() {
-            return this.apiBaseUrl + this.endpoints.Source;
+            return this.apiBaseUrl + this.endpoints.Sources;
           },   
-          ChargeRateseApiUrl() {
+          ChargeRatesApiUrl() {
             return this.apiBaseUrl + this.endpoints.ChargeRates;
           },   
-          ChargeRateseApiDeleteUrl() {
+          ChargeRatesApiDeleteUrl() {
             return this.apiBaseUrl + this.endpoints.ChargeRatesDelete;
           },   
-          ChargeRateseApiByRateIdUrl() {
+          ChargeRatesApiByRateIdUrl() {
             return this.apiBaseUrl + this.endpoints.ChargeRatesByRateId;
           },   
-
+          TradeApiUrl() {
+            return this.apiBaseUrl + this.endpoints.Trades;
+          }, 
       }, 
     }

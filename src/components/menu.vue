@@ -1377,28 +1377,28 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <b-link href="#sidebarlanding" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                            aria-controls="sidebarlanding" data-key="t-projects">
+                    <b-link href="#trading" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="trading" data-key="t-projects">
                         <i class="ri-rocket-line"></i>
                         <span data-key="t-trading">{{ $t("t-trading") }}</span>
                     </b-link>
-                    <div class="collapse menu-dropdown" id="sidebarlanding">
+                    <div class="collapse menu-dropdown" id="trading">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <b-link class="nav-link menu-link" target="_blank" href="/trading/baskets">
-                                    <span data-key="t-trading-baskets">{{ $t("t-trading-baskets") }}</span>
-                                </b-link>
-                            </li>
+                                <router-link to="/trading/baskets" class="nav-link" data-key="t-trading-baskets">
+                                    {{ $t("t-trading-baskets") }}
+                                </router-link>
+                            </li>                            
                             <li class="nav-item">
                                 <b-link class="nav-link menu-link" target="_blank" href="/trading/marketprices">
                                     <span data-key="t-trading-market-prices">{{ $t("t-trading-market-prices") }}</span>
                                 </b-link>
                             </li>
                             <li class="nav-item">
-                                <b-link class="nav-link menu-link" target="_blank" href="/trading/trades">
-                                    <span data-key="t-trading-trades">{{ $t("t-trading-trades") }}</span>
-                                </b-link>
-                            </li>
+                                <router-link to="/trading/trades" class="nav-link" data-key="t-trading-trades">
+                                    {{ $t("t-trading-trades") }}
+                                </router-link>
+                            </li>                            
                         </ul>
                     </div>
                 </li>

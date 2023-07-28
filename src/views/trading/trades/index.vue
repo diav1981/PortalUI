@@ -9,24 +9,24 @@ import MessagePopup from '../../../components/shared/message.vue';
 
 export default {
   page: {
-    title: "Baskets",
+    title: "Trades",
     meta: [{ name: "description", content: appConfig.description }],
   },
   mixins: [base],    
   data() {
     return {
-      title: "Baskets",
+      title: "Trades",
       items: [
         {
           text: "Trading",
           href: "/",
         },
         {
-          text: "Baskets",
+          text: "Trades",
           active: true,
         },
       ],
-      basketData: null,
+      tradeData: null,
     };
   },
   components: {
@@ -36,37 +36,37 @@ export default {
   },
   computed:{
       hasData() {
-        return !!this.basketData && !!this.basketData.length > 0;
+        return !!this.tradeData && !!this.tradeData.length > 0;
       },  
     },
   methods:{
     showPopup(title, headline, message) {
             this.$refs.messagePopup.showMessage(title, headline, message);
         },    
-    async fetchBasketData(){
+    async fetchTradeData(){
       try {
-        console.log(this.basketApiUrl);
-        const response = await axios.get(`${this.basketApiUrl}`);
+        console.log(this.TradeApiUrl);
+        const response = await axios.get(`${this.TradeApiUrl}`);
         if (response.status === 200) {
           // Data successfully fetched with a status code of 200
           this.basketData = response.data;
         } else {
-          this.showPopup('Uh-oh', '', `Basket data couldn't be retrieved, if it keeps happening it could be one for App Support. The error was'${response.message}'`);
+          this.showPopup('Uh-oh', '', `Trade data couldn't be retrieved, if it keeps happening it could be one for App Support. The error was'${response.message}'`);
         }
       } catch (error) {
           if (error.response && error.response.data && error.response.data) {
             // The API returned an error message.
-            this.showPopup('Uh-oh', '', `Basket data couldn't be retrieved, the attempt failed with status ${error.response.status}. Might be one for App Support.
+            this.showPopup('Uh-oh', '', `Trade data couldn't be retrieved, the attempt failed with status ${error.response.status}. Might be one for App Support.
             The following text might help them. '${error.response.data}'`);
           } else {
             // Handle other errors.
-            this.showPopup('Uh-oh', '', `Basket data couldn't be retrieved. If it keeps happening it's one for App Support.`);
+            this.showPopup('Uh-oh', '', `Trade data couldn't be retrieved. If it keeps happening it's one for App Support.`);
           }
       }
     }
   },
   mounted(){
-    this.fetchBasketData();
+    this.fetchTradeData();
   }
 };
 </script>
@@ -95,7 +95,7 @@ export default {
                                 <th scope="col">Multiplier</th>
                             </thead>
                                 <tbody>
-                                    <template v-for="item in basketData" :key="item.basketId">
+                                    <template v-for="item in tradeData" :key="item.Id">
                                     <tr>
                                         <td>{{ item.id }}</td>
                                         <td>{{ item.name }}</td>

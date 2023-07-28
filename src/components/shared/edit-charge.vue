@@ -95,7 +95,7 @@ export default {
 
         try
         {
-            const response = await axios.put(this.chargeRatesApiUrl, dataToSend)
+            const response = await axios.put(this.ChargeRatesApiUrl, dataToSend)
             console.log(response);
             if (response.status === 200) {
                     this.show = false;
@@ -117,7 +117,7 @@ export default {
                     this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be updated, the attempt failed with status ${error.response.status}. Might be one for App Support.
                     The following text might help them. '${error.response.data}'`);
                     } else {
-                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be updated, the attempt failed. No other information was given. Defintely one for App Support.`);
+                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be updated, the attempt failed. No other information was given. Definitely one for App Support.`);
                 }
             }
             mitt.emit('refreshView');   

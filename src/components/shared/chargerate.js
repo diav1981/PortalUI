@@ -77,7 +77,7 @@ export default {
     },
     async fetchChargeData() {  
         try {
-            const response = await axios.get(`${this.ChargeRateseApiByRateIdUrl}/${this.chargeRateId}`);
+            const response = await axios.get(`${this.ChargeRatesApiByRateIdUrl}/${this.chargeRateId}`);
             this.chargeData = response.data;
             this.getUniqueChargeRateTypes();
             this.flattenData();

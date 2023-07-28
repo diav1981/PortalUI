@@ -2,6 +2,7 @@
     import axios from 'axios';
     import MessagePopup from './message.vue';
     import mitt from './mitt.js';
+    import base from './base/base-component.js'
 
 export default {
   data() {
@@ -14,6 +15,7 @@ export default {
       value: null,
     };
   },
+  mixins: [base],     
   components: {
      MessagePopup,
     },      
@@ -33,8 +35,9 @@ export default {
             try {
                 console.log('chargeid is');
                 console.log(this.chargeId);
-                const endpointUrl = `${this.chargeRatesApiDeleteUrl}/${this.chargeId}`;
-
+                const endpointUrl = `${this.ChargeRatesApiDeleteUrl}/${this.chargeId}`;
+                console.log('url is');
+                console.log(endpointUrl);
                 const response = await axios.delete(endpointUrl);
 
                 if (response.status === 200) {
@@ -66,7 +69,7 @@ export default {
                     The following text might help them. '${error.response.data}'`);
                     } else {
                     // Handle other errors.
-                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. No other information was given. Defintely one for App Support.'`);
+                    this.showPopup('Uh-oh', 'Sorry, it didn\'t work', `The charge couldn't be removed, the attempt failed with status ${error.response.status}. No other information was given. Definitely one for App Support.'`);
                     }
 
                 }

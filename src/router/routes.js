@@ -218,6 +218,14 @@ export default [
     component: () => import("../views/trading/baskets/index"),
   },
   {
+    path: "/trading/trades",
+    name: "trading-trades",
+    meta: {
+      title: "Trades", authRequired: true,
+    },
+    component: () => import("../views/trading/trades/index"),
+  },
+  {
     path: "/dashboard/analytics",
     name: "dashboard-analytics",
     meta: {
